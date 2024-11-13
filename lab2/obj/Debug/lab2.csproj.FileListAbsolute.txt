@@ -1,0 +1,30 @@
+C:\Users\ketio\Desktop\studia\agentowe\a2\21449_Wojciech_Jurek (1)\lab2\bin\Debug\lab1.exe.config
+C:\Users\ketio\Desktop\studia\agentowe\a2\21449_Wojciech_Jurek (1)\lab2\bin\Debug\lab1.exe
+C:\Users\ketio\Desktop\studia\agentowe\a2\21449_Wojciech_Jurek (1)\lab2\bin\Debug\lab1.pdb
+C:\Users\ketio\Desktop\studia\agentowe\a2\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab2.csproj.AssemblyReference.cache
+C:\Users\ketio\Desktop\studia\agentowe\a2\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab1.Form1.resources
+C:\Users\ketio\Desktop\studia\agentowe\a2\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab1.Properties.Resources.resources
+C:\Users\ketio\Desktop\studia\agentowe\a2\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab2.csproj.GenerateResource.cache
+C:\Users\ketio\Desktop\studia\agentowe\a2\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab2.csproj.CoreCompileInputs.cache
+C:\Users\ketio\Desktop\studia\agentowe\a2\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab1.exe
+C:\Users\ketio\Desktop\studia\agentowe\a2\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab1.pdb
+D:\pliki z pulpitu\r3s1\agent\21449_Wojciech_Jurek (1)\21449_Wojciech_Jurek (1)\lab2\bin\Debug\lab1.exe.config
+D:\pliki z pulpitu\r3s1\agent\21449_Wojciech_Jurek (1)\21449_Wojciech_Jurek (1)\lab2\bin\Debug\lab1.exe
+D:\pliki z pulpitu\r3s1\agent\21449_Wojciech_Jurek (1)\21449_Wojciech_Jurek (1)\lab2\bin\Debug\lab1.pdb
+D:\pliki z pulpitu\r3s1\agent\21449_Wojciech_Jurek (1)\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab2.csproj.AssemblyReference.cache
+D:\pliki z pulpitu\r3s1\agent\21449_Wojciech_Jurek (1)\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab1.Form1.resources
+D:\pliki z pulpitu\r3s1\agent\21449_Wojciech_Jurek (1)\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab1.Properties.Resources.resources
+D:\pliki z pulpitu\r3s1\agent\21449_Wojciech_Jurek (1)\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab2.csproj.GenerateResource.cache
+D:\pliki z pulpitu\r3s1\agent\21449_Wojciech_Jurek (1)\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab2.csproj.CoreCompileInputs.cache
+D:\pliki z pulpitu\r3s1\agent\21449_Wojciech_Jurek (1)\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab1.exe
+D:\pliki z pulpitu\r3s1\agent\21449_Wojciech_Jurek (1)\21449_Wojciech_Jurek (1)\lab2\obj\Debug\lab1.pdb
+D:\pliki z pulpitu\r3s1\agent\lab3\lab2\bin\Debug\lab1.exe.config
+D:\pliki z pulpitu\r3s1\agent\lab3\lab2\bin\Debug\lab1.exe
+D:\pliki z pulpitu\r3s1\agent\lab3\lab2\bin\Debug\lab1.pdb
+D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab2.csproj.AssemblyReference.cache
+D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab1.Form1.resources
+D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab1.Properties.Resources.resources
+D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab2.csproj.GenerateResource.cache
+D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab2.csproj.CoreCompileInputs.cache
+D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab1.exe
+D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab1.pdb
