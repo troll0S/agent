@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.d_value = new System.Windows.Forms.ComboBox();
             this.n_value = new System.Windows.Forms.TextBox();
@@ -51,20 +48,17 @@
             this.elita_value = new System.Windows.Forms.CheckBox();
             this.wykresButton = new System.Windows.Forms.Button();
             this.testyButon = new System.Windows.Forms.Button();
-            this.wykresPanel = new System.Windows.Forms.Panel();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.dane = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.wykresPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1077, 30);
+            this.button1.Location = new System.Drawing.Point(1077, 31);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(91, 21);
             this.button1.TabIndex = 0;
-            this.button1.Text = "start";
+            this.button1.Text = "oblicz";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -247,38 +241,22 @@
             this.testyButon.UseVisualStyleBackColor = true;
             this.testyButon.Click += new System.EventHandler(this.testyButon_Click);
             // 
-            // wykresPanel
+            // dane
             // 
-            this.wykresPanel.Controls.Add(this.chart1);
-            this.wykresPanel.Location = new System.Drawing.Point(151, 103);
-            this.wykresPanel.Name = "wykresPanel";
-            this.wykresPanel.Size = new System.Drawing.Size(811, 310);
-            this.wykresPanel.TabIndex = 20;
-            this.wykresPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.wykresPanel_Paint);
-            // 
-            // chart1
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(71, 7);
-            this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(635, 300);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
-            this.chart1.Click += new System.EventHandler(this.chart1_Click);
+            this.dane.Location = new System.Drawing.Point(834, 29);
+            this.dane.Name = "dane";
+            this.dane.Size = new System.Drawing.Size(75, 23);
+            this.dane.TabIndex = 20;
+            this.dane.Text = "dane";
+            this.dane.UseVisualStyleBackColor = true;
+            this.dane.Click += new System.EventHandler(this.dane_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1171, 781);
-            this.Controls.Add(this.wykresPanel);
+            this.Controls.Add(this.dane);
             this.Controls.Add(this.testyButon);
             this.Controls.Add(this.wykresButton);
             this.Controls.Add(this.elita_value);
@@ -302,8 +280,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.wykresPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -331,8 +307,7 @@
         private System.Windows.Forms.CheckBox elita_value;
         private System.Windows.Forms.Button wykresButton;
         private System.Windows.Forms.Button testyButon;
-        private System.Windows.Forms.Panel wykresPanel;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Button dane;
     }
 }
 

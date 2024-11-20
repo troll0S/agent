@@ -23,21 +23,33 @@ namespace CalculationsNamesapce
             int i = 0;
             double begin = 0;
             double end = table[0];
+
+            if (table.Length == 0)
+            {
+                throw new ArgumentException("Tablica jest pusta."); // Obsługa pustej tablicy
+            }
+
             foreach (double row in table)
             {
-                if(r > begin &&  r < end)
+                if (r > begin && r <= end) // Sprawdzanie zakresu
                 {
                     return i;
                 }
-                else
+
+                begin = end;
+                ++i;
+
+                if (i < table.Length) // Sprawdzanie przed aktualizacją end
                 {
-                    begin = end;
-                    ++i;
                     end = table[i];
                 }
-
+                else
+                {
+                    break; // Przerwanie pętli, gdy osiągnięto koniec tablicy
+                }
             }
-            return table.Length-1;
+
+            return table.Length - 1; // Domyślnie zwraca ostatni indeks
         }
         public static bool isDrawn(double p)
         {

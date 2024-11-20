@@ -7,14 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using BasicMathsNamespace;
 using CalculationsNamesapce;
 using UtilityNamespace;
+using PokolenieNamespace;
 
 namespace lab1
 {
     public partial class Form1 : Form
     {
+        
+        private Pokolenie[] pokolenies;
+        private BasicMaths myFunc;
         public Form1()
         {
             InitializeComponent();
@@ -48,8 +53,8 @@ namespace lab1
             if (a_value.Text != "-" && a_value.Text != "" && 
                 b_value.Text != "-" && b_value.Text != "" &&
                 d_value.Text != "" && n_value.Text != ""  &&
-                pk_Value.Text != "" && pn_Value.Text != "" )
-                
+                pk_Value.Text != "" && pn_Value.Text != "" &&
+                T_value.Text != "")
             {
 
                 
@@ -74,196 +79,15 @@ namespace lab1
                     a_value.Text = aValue.ToString();
                     b_value.Text = bValue.ToString();
                 }
-                BasicMaths myFunc = new BasicMaths(aValue, bValue, dValue);
+
+
+                myFunc = new BasicMaths(aValue, bValue, dValue);
                 //Calculations myCalc = new Calculations();
-                DataTable table = new DataTable();
-                table.Columns.Add("Lp.");
-                table.Columns.Add("xreal");
-                table.Columns.Add("xbin");
-                table.Columns.Add("f(x)");
-                table.Columns.Add("%");
+
+
+
+                pokolenies = Utility.CalcPokolenies(pkValue, pnValue,elite,tValue,nValue,myFunc);
                 
-                
-
-
-                double[] xreal = new double[nValue]; 
-                string[] xbin = new string[nValue];
-                double[] funcx = new double[nValue]; 
-                double[] funcgx = new double[nValue]; 
-                double[] p = new double[nValue]; 
-                double[] q = new double[nValue]; 
-                double[] r = new double[nValue]; 
-                double[] xrealselection = new double[nValue]; 
-                string[] xbinselection = new string[nValue]; 
-                bool[] parents = new bool[nValue]; 
-                int[] pairs = new int[nValue];
-                int[] pc = new int[nValue]; 
-                string[] child = new string[nValue]; 
-                string[] pokrzyzu = new string[nValue]; 
-                string[] mutacje = new string[nValue]; 
-                string[] xbinmutacja = new string[nValue]; 
-                double[] xrealmutacja = new double[nValue]; 
-                double[] funcx2 = new double[nValue];
-                double[] maxVal = new double[2];
-                double min;
-
-
-                for (int i = 0; i < nValue; ++i)
-                {
-                    xreal[i] = myFunc.rand_xreal();
-                }
-
-
-                for (int t = 0; t < tValue; ++t)
-                {
-
-
-
-
-                    for (int i = 0; i < nValue; ++i)
-                    {
-
-                        funcx[i] = myFunc.func(xreal[i]);
-                        xbin[i] = myFunc.calculate_xbin(myFunc.calculate_xint(xreal[i]));
-                    }
-
-                    maxVal[0] = myFunc.max_in_table(funcx);
-                    maxVal[1] = xreal[Array.IndexOf(funcx, maxVal[0])];
-
-
-                    min = myFunc.min_in_table(funcx);
-                    for (int i = 0; i < nValue; ++i)
-                    {
-                        funcgx[i] = myFunc.func_gx_max(xreal[i], min);
-                    }
-
-                    for (int i = 0; i < nValue; ++i)
-                    {
-                        p[i] = Calculations.calculatep(funcgx[i], funcgx);
-                        r[i] = Utility.myFate.NextDouble();
-                    }
-                    q[0] = p[0];
-                    for (int i = 1; i < nValue; ++i)
-                    {
-                        q[i] = q[i - 1] + p[i];
-                    }
-
-                    for (int i = 0; i < nValue; ++i)
-                    {
-
-                        xrealselection[i] = xreal[Calculations.findindex(r[i], q)];
-                        xbinselection[i] = myFunc.calculate_xbin(myFunc.calculate_xint(xrealselection[i]));
-                        parents[i] = Calculations.isDrawn(pkValue);
-
-                    }
-                    int tmp = 0;
-                    int pre = 0;
-                    for (int i = 0; i < nValue; ++i)
-                    {
-                        if (parents[i])
-                        {
-                            if (tmp == 0)
-                            {
-                                pairs[i] = i;
-                                tmp = 1;
-                                pre = i;
-                            }
-                            else
-                            {
-                                pairs[i] = i;
-                                tmp = 0;
-                                Utility.Swap(ref pairs[i], ref pairs[pre]);
-                                pc[i] = pc[pre] = Utility.myFate.Next(1, myFunc.getL());
-                                pre = 0;
-
-                            }
-                        }
-                    }
-                    for (int i = 0; i < nValue; ++i)
-                    {
-                        if (parents[i])
-                        {
-                            child[i] = xbinselection[i];
-                            child[pairs[i]] = xbinselection[pairs[i]];
-                            myFunc.childs(pc[i], ref child[i], ref child[pairs[i]]);
-                            i = pairs[i];
-                        }
-                    }
-
-                    for (int i = 0; i < nValue; ++i)
-                    {
-                        if (parents[i])
-                        {
-                            pokrzyzu[i] = child[i];
-                        }
-                        else
-                        {
-                            pokrzyzu[i] = xbinselection[i];
-                        }
-                    }
-
-                    for (int i = 0; i < nValue; ++i)
-                    {
-                        xbinmutacja[i] = pokrzyzu[i];
-                        for (int j = 0; j < pokrzyzu[i].Length; ++j)
-                        {
-
-                            if (Calculations.isDrawn(pnValue))
-                            {
-                                mutacje[i] += (j + 1).ToString() + " ";
-                                xbinmutacja[i] = Utility.Swapbit(xbinmutacja[i], j);
-                            }
-                        }
-                        xrealmutacja[i] = myFunc.calculate_xreal(myFunc.calculate_xint_bin(xbinmutacja[i]));
-                        funcx2[i] = myFunc.func(xrealmutacja[i]);
-                    }
-
-                    if (elite)
-                    {
-                        int temp_index = Utility.myFate.Next(nValue);
-                        if (maxVal[0] > funcx2[temp_index])
-                        {
-                            xrealmutacja[temp_index] = maxVal[1];
-                            funcx2[temp_index] = maxVal[0];
-                        }
-                    }
-                    for(int i = 0; i < nValue; ++i)
-                    {
-                        xreal[i] = xrealmutacja[i];
-                    }
-
-
-                }
-                Dictionary<double,int> results = new Dictionary<double,int>();
-                foreach( double value in xreal)
-                {
-                    if (results.ContainsKey(value))
-                    {
-                        results[value]++;
-                    }
-                    else
-                    {
-                        results[value] = 1;
-                    }
-                }
-                var sortedResult = results.OrderByDescending(pair => pair.Value).ToList();
-                int count = 0;
-                foreach(var pair in sortedResult)
-                {
-                    DataRow row = table.NewRow();
-                    row[0] = count + 1;
-                    row[1] = pair.Key;
-                    row[2] = myFunc.calculate_xbin(myFunc.calculate_xint(pair.Key));
-                    row[3] = myFunc.func(pair.Key);
-                    row[4] = pair.Value*100/nValue;
-                    table.Rows.Add(row);
-                    ++count;
-                }
-                 
-                    
-                
-
-                    dataGridView1.DataSource = table;
             }
         }
 
@@ -429,23 +253,158 @@ namespace lab1
 
         private void wykresButton_Click(object sender, EventArgs e)
         {
-            
+            if (pokolenies == null || pokolenies.Length == 0)
+            {
+                MessageBox.Show("Brak danych do wyświetlenia. Najpierw wykonaj obliczenia.");
+                return;
+            }
+            Form chartDialog = new Form
+            {
+                Text = "Wykres",
+                Width = 800,
+                Height = 600
+            };
+
+            Chart chart = new Chart
+            {
+                Dock = DockStyle.Fill
+            };
+
+            chartDialog.Controls.Add(chart);
+
+
+            ChartArea chartArea = new ChartArea("MainArea")
+            {
+                AxisX = { Title = "Pokolenie" },
+                AxisY = { Title = "Wartosc funkcji"}
+            };
+
+            chart.ChartAreas.Add(chartArea);
+
+            Series avgSeries = new Series("średnia wartość")
+            {
+                ChartType = SeriesChartType.Line,
+                Color = System.Drawing.Color.Green,
+                BorderWidth = 2
+            };
+
+            Legend legend = new Legend("Legend")
+            {
+                Docking = Docking.Top, 
+                Alignment = StringAlignment.Center,
+                LegendStyle = LegendStyle.Row 
+            };
+            chart.Legends.Add(legend);
+
+            Series maxSeries = new Series("max wartość")
+            {
+                ChartType = SeriesChartType.Line,
+                Color = System.Drawing.Color.Red,
+                BorderWidth = 2
+            };
+            Series minSeries = new Series("min wartość")
+            {
+                ChartType = SeriesChartType.Line,
+                Color = System.Drawing.Color.Blue,
+                BorderWidth = 2
+            };
+
+            for (int i = 0; i < pokolenies.Length; ++i)
+            {
+                avgSeries.Points.AddXY(i + 1, pokolenies[i].getAvg());
+                maxSeries.Points.AddXY(i + 1, pokolenies[i].getMaxFunc());
+                minSeries.Points.AddXY(i + 1, pokolenies[i].getMinFunc());
+            }
+            chart.Series.Add(avgSeries);
+            chart.Series.Add(maxSeries);
+            chart.Series.Add(minSeries);
+            chartDialog.ShowDialog();
         }
 
 
         private void testyButon_Click(object sender, EventArgs e)
         {
+            /* int[] Ntab = Utility.CreateArray(30, 80, 5);
+             double[] pktab = Utility.CreateArray(0.5, 0.91, 0.05);
+             double[] pntab = Utility.CreateAlternatingArray(0.0001, 0.01);
+             int[] Ttab = Utility.CreateArray(50, 100, 10);
 
+             Tests test1 = new Tests(Ntab, Ttab, pktab, pntab);
+             test1.setZestawyParallel();
+             test1.SortData();
+             ZestawDanych[] zestaw1 = test1.getZestaw();
+             StringBuilder sb = new StringBuilder();
+             sb.AppendLine("LP T N pn pk favg");
+             int iter = 1;
+             foreach (var row in zestaw1)
+             {
+                 sb.AppendLine($"{iter} {row.T} {row.N} {row.pn} {row.pk} {row.favg}");
+                 ++iter;
+             }
+             MessageBox.Show(sb.ToString(), "Wyniki Testów", MessageBoxButtons.OK, MessageBoxIcon.Information);*/
+            
+            int[] Ntab = Utility.CreateArray(30, 80, 5);
+            double[] pktab = Utility.CreateArray(0.5, 0.91, 0.05);
+            double[] pntab = Utility.CreateAlternatingArray(0.0001, 0.01);
+            int[] Ttab = Utility.CreateArray(50, 100, 10);
+
+            Tests test1 = new Tests(Ntab, Ttab, pktab, pntab);
+            test1.setZestawyParallel();
+            test1.SortData();
+            ZestawDanych[] zestaw1 = test1.getZestaw();
+            
+            // Tworzenie i wyświetlanie formularza z wynikami
+            resultForm resultsForm = new resultForm();
+            resultsForm.SetData(zestaw1); // Przekazanie danych do formularza
+            resultsForm.ShowDialog();    // Wyświetlenie jako okno dialogowe
         }
 
-        private void wykresPanel_Paint(object sender, PaintEventArgs e)
+        private void dane_Click(object sender, EventArgs e)
         {
+            if (pokolenies != null)
+            {
+                DataTable table = new DataTable();
+                table.Columns.Add("Lp.");
+                table.Columns.Add("xreal");
+                table.Columns.Add("xbin");
+                table.Columns.Add("f(x)");
+                table.Columns.Add("%");
+                Dictionary<double, int> results = new Dictionary<double, int>();
+                double[] xreal = pokolenies[pokolenies.Length - 1].getXreal2();
+                foreach (double value in xreal)
+                {
+                    if (results.ContainsKey(value))
+                    {
+                        results[value]++;
+                    }
+                    else
+                    {
+                        results[value] = 1;
+                    }
+                }
+                var sortedResult = results.OrderByDescending(pair => pair.Value).ToList();
+                int count = 0;
+                foreach (var pair in sortedResult)
+                {
+                    DataRow row = table.NewRow();
+                    row[0] = count + 1;
+                    row[1] = pair.Key;
+                    row[2] = myFunc.calculate_xbin(myFunc.calculate_xint(pair.Key)); // Użycie 'myFunc'
+                    row[3] = myFunc.func(pair.Key);
+                    row[4] = pair.Value * 100 / xreal.Length;
+                    table.Rows.Add(row);
+                    ++count;
+                }
 
-        }
 
-        private void chart1_Click(object sender, EventArgs e)
-        {
+                dataGridView1.DataSource = table;
 
+
+            }
+            else
+            {
+                MessageBox.Show("Nie wykonano obliczeń. Proszę kliknąć 'Oblicz' przed wyświetleniem danych.");
+            }
         }
     }
 }

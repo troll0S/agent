@@ -28,3 +28,4 @@ D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab2.csproj.GenerateResource.c
 D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab2.csproj.CoreCompileInputs.cache
 D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab1.exe
 D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab1.pdb
+D:\pliki z pulpitu\r3s1\agent\lab3\lab2\obj\Debug\lab1.resultForm.resources
