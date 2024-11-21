@@ -33,8 +33,8 @@ namespace lab1
             dataGridView1.DataSource = zestawy.Select(z => new
             {
                 Średnia = z.favg,
-                Czas = z.T,
-                Liczba = z.N,
+                T = z.T,
+                N = z.N,
                 PrawdopodobieństwoPn = z.pn,
                 PrawdopodobieństwoPk = z.pk
             }).ToList();

@@ -21,7 +21,7 @@ namespace lab1
         int[] Ttab;
         bool elit;
         long countZestaw;
-        BasicMaths myFunc;
+        
         public Tests(int[] Ntab, int[] Ttab, double[] pktab, double[] pntab, bool elit = true, double a = -4, double b = 12, double precision = 0.001) 
         {
             this.Ntab = Ntab;
@@ -32,8 +32,9 @@ namespace lab1
             this.a = a;
             this.b = b;
             this.precision = precision;
-            myFunc = new BasicMaths(a,b,precision);
+           
             countZestaw = 0;
+            //countZestaw = count(Nval) * ....
             foreach (int Nval in Ntab)
             {
                 foreach (double pkval in pktab)
@@ -50,69 +51,39 @@ namespace lab1
             Data = new ZestawDanych[countZestaw];
         }
 
-        public void setZestawy() 
-        {
-            double dataAvg;
-            long j = 0;
-            Pokolenie[] pokolenies;
-            foreach (int Nval in Ntab)
-            {
-                foreach (double pkval in pktab)
-                {
-                    foreach (double pnval in pntab)
-                    {
-                        foreach (int Tval in Ttab)
-                        {
-                            dataAvg = 0;
-                            for (int i = 0; i < 100; ++i)
-                            {
-                                pokolenies = Utility.CalcPokolenies(pkval, pnval, elit, Tval, Nval, myFunc);
-                                dataAvg += pokolenies[Tval - 1].getMaxFunc();
-
-                            }
-                            dataAvg /= 100;
-                            Data[j] = new ZestawDanych(pkval, pnval, dataAvg, Nval, Tval);
-                            ++j;
-                        }
-                    }
-                }
-            }
-        }
+        
 
         public void setZestawyParallel()
         {
 
-            long j = 0;
+            int iterations = 100;
             //Pokolenie[] pokolenies;
             List<ZestawDanych> results = new List<ZestawDanych>();
-
-            Parallel.ForEach(Ntab, Nval =>
+            var options = new ParallelOptions { MaxDegreeOfParallelism = 32 };
+            var combinations = from Nval in Ntab
+                              from pkval in pktab
+                              from pnval in pntab
+                              from Tval in Ttab
+                              select (Nval, pkval, pnval, Tval);
+            Parallel.ForEach(combinations, options, combination =>
             {
-                Parallel.ForEach(pktab, pkval =>
+                var (Nval, pkval, pnval, Tval) = combination;
+                double dataAvg = 0;
+                BasicMaths myFunc = new BasicMaths(a, b, precision);
+                for (int i = 0; i < iterations; ++i)
                 {
-                    Parallel.ForEach(pntab, pnval =>
-                    {
-                        Parallel.ForEach(Ttab, Tval =>
-                        {
-                            Console.WriteLine($"Start Tval={Tval}, Nval={Nval}, pkval={pkval}, pnval={pnval}");
-                            double dataAvg = 0;
-                            for (int i = 0; i < 100; ++i)
-                            {
-                                var pokolenies = Utility.CalcPokolenies(pkval, pnval, elit, Tval, Nval, myFunc);
-                                dataAvg += pokolenies[Tval - 1].getMaxFunc();
-                            }
-                            dataAvg /= 100;
+                    var pokolenies = Utility.CalcPokolenies(pkval, pnval, elit, Tval, Nval, myFunc);
+                    dataAvg += pokolenies[pokolenies.Length - 1].getMaxFunc();
+                }
 
-                            lock (results)
-                            {
-                                results.Add(new ZestawDanych(pkval, pnval, dataAvg, Nval, Tval));
-                            }
-                            Console.WriteLine($"Finish Tval={Tval}, Nval={Nval}, pkval={pkval}, pnval={pnval}, Avg={dataAvg}");
-                        });
-                    });
-                });
+                dataAvg /= iterations;
+
+                lock (results)
+                {
+                    results.Add(new ZestawDanych(pkval, pnval, dataAvg, Nval, Tval));
+                }
+                Console.WriteLine($"Stop Tval={Tval}, Nval={Nval}, pkval={pkval}, pnval={pnval} dataAvg={dataAvg}");
             });
-
 
             // Skopiuj wyniki z listy do tablicy
             Data = results.ToArray();

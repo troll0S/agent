@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using BasicMathsNamespace;
 using PokolenieNamespace;
@@ -11,7 +12,7 @@ namespace UtilityNamespace
 {
     internal class Utility
     {
-        public static Random myFate = new Random();
+        public static ThreadLocal<Random> myFate = new ThreadLocal<Random>(() => new Random());
         //utility.myFate.next(zakrs)
         public static void Swap(ref int x, ref int y)
         {

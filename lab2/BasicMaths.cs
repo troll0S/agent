@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using UtilityNamespace;
 
@@ -12,7 +13,8 @@ namespace BasicMathsNamespace
     {
         double a, b, d;
         int l;
-        Random random = new Random();
+        private static ThreadLocal<Random> threadRandom = new ThreadLocal<Random>(() => new Random());
+
         public BasicMaths(double a, double b, double d)
         {
             this.a = a;
@@ -29,14 +31,14 @@ namespace BasicMathsNamespace
 
         private int calculate_l()
         {
-            double temp = ((this.b - this.a) / this.d + 1);
+            double temp = ((b - a) / d + 1);
             double l = Math.Ceiling(Math.Log(temp) / Math.Log(2));
             return (int)l;
         }
 
         public double rand_xreal()
         {
-
+            Random random = threadRandom.Value;
             return Math.Floor((random.NextDouble() * (this.b - this.a) + this.a) / d) * d;
         }
 
@@ -79,7 +81,8 @@ namespace BasicMathsNamespace
         public double func(double x)
         {
             double result;
-            result = (x - Math.Floor(x)) * (Math.Cos(20 * Math.PI * x) - Math.Sin(x));
+            int miejscaPoPrzecinku = (int)Math.Log10(1 / d);
+            result = Math.Round((x - Math.Floor(x)) * (Math.Cos(20 * Math.PI * x) - Math.Sin(x)), miejscaPoPrzecinku);
             return result;
         }
         public double min_in_table(double[] tab)

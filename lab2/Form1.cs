@@ -324,30 +324,11 @@ namespace lab1
 
         private void testyButon_Click(object sender, EventArgs e)
         {
-            /* int[] Ntab = Utility.CreateArray(30, 80, 5);
-             double[] pktab = Utility.CreateArray(0.5, 0.91, 0.05);
-             double[] pntab = Utility.CreateAlternatingArray(0.0001, 0.01);
-             int[] Ttab = Utility.CreateArray(50, 100, 10);
 
-             Tests test1 = new Tests(Ntab, Ttab, pktab, pntab);
-             test1.setZestawyParallel();
-             test1.SortData();
-             ZestawDanych[] zestaw1 = test1.getZestaw();
-             StringBuilder sb = new StringBuilder();
-             sb.AppendLine("LP T N pn pk favg");
-             int iter = 1;
-             foreach (var row in zestaw1)
-             {
-                 sb.AppendLine($"{iter} {row.T} {row.N} {row.pn} {row.pk} {row.favg}");
-                 ++iter;
-             }
-             MessageBox.Show(sb.ToString(), "Wyniki Testów", MessageBoxButtons.OK, MessageBoxIcon.Information);*/
-            
             int[] Ntab = Utility.CreateArray(30, 80, 5);
             double[] pktab = Utility.CreateArray(0.5, 0.91, 0.05);
             double[] pntab = Utility.CreateAlternatingArray(0.0001, 0.01);
             int[] Ttab = Utility.CreateArray(50, 100, 10);
-
             Tests test1 = new Tests(Ntab, Ttab, pktab, pntab);
             test1.setZestawyParallel();
             test1.SortData();

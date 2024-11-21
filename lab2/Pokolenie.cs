@@ -38,7 +38,7 @@ namespace PokolenieNamespace
         double[] maxVal = new double[2];
         double[] minVal = new double[2];
         double avgVal;
-
+        Random random = Utility.myFate.Value;
 
         public Pokolenie(double[] xreal,BasicMaths basicMaths,double pk,double pn,bool elita) 
         {
@@ -89,6 +89,9 @@ namespace PokolenieNamespace
                 calcElite();
             }
             calcAvg();
+            setEndFunc();
+            setMax();
+            setMin();
         }
 
         private void calcFuncx()
@@ -134,9 +137,10 @@ namespace PokolenieNamespace
         }
         private void calcR()
         {
+            
             for (int i = 0; i < nValue; ++i)
             {
-                r[i] = Utility.myFate.NextDouble();
+                r[i] = random.NextDouble();
             }
         }
         private void calcQ()
@@ -188,7 +192,7 @@ namespace PokolenieNamespace
                         pairs[i] = i;
                         tmp = 0;
                         Utility.Swap(ref pairs[i], ref pairs[pre]);
-                        pc[i] = pc[pre] = Utility.myFate.Next(1, myFunc.getL());
+                        pc[i] = pc[pre] = random.Next(1, myFunc.getL());
                         pre = 0;
 
                     }
@@ -239,7 +243,7 @@ namespace PokolenieNamespace
 
         private void calcElite()
         {
-            int temp_index = Utility.myFate.Next(nValue);
+            int temp_index = random.Next(nValue);
             if (maxVal[0] > funcx2[temp_index])
             {
                 xrealmutacja[temp_index] = maxVal[1];
@@ -258,6 +262,16 @@ namespace PokolenieNamespace
             avgVal = sum / funcx2.Length;
         }
 
+        private void setEndFunc()
+        {
+            int i = 0;
+            foreach(double num in funcx2)
+            {
+                funcx[i] = num;
+                ++i;
+            }
+        }
+
         public double[] getXreal() { return xreal; }
 
         public string[] getXbin() { return xbin; }
@@ -270,7 +284,7 @@ namespace PokolenieNamespace
         public double[] getMin() {  return minVal; }
         public double getAvg() { return avgVal; }
 
-        public double getMaxFunc() { return maxVal[0]; }
+        public double getMaxFunc() { return myFunc.max_in_table(funcx2); }
         public double getMinFunc() { return minVal[0]; }
 
 

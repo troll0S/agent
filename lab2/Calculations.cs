@@ -53,8 +53,8 @@ namespace CalculationsNamesapce
         }
         public static bool isDrawn(double p)
         {
-            
-            return  p >= Utility.myFate.NextDouble();
+            Random random = Utility.myFate.Value;
+            return  p >= random.NextDouble();
             //Console.WriteLine($"{p} {a}");
             
         }
